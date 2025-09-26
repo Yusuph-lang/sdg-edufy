@@ -3,6 +3,7 @@ import { StatCard } from "@/components/ui/stat-card";
 import { GoalCard } from "@/components/ui/goal-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 import { 
   BookOpen, 
   Users, 
@@ -17,6 +18,41 @@ import {
 import educationHero from "@/assets/education-hero.jpg";
 
 const Index = () => {
+  const { toast } = useToast();
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleLearnMore = () => {
+    scrollToSection('statistics');
+  };
+
+  const handleTakeAction = () => {
+    scrollToSection('call-to-action');
+  };
+
+  const handleDonate = () => {
+    toast({
+      title: "Thank you for your interest!",
+      description: "Donation portal coming soon. Your support makes a difference.",
+    });
+  };
+
+  const handleVolunteer = () => {
+    toast({
+      title: "Join our mission!",
+      description: "Volunteer registration will be available soon.",
+    });
+  };
+
+  const handleAdvocate = () => {
+    toast({
+      title: "Spread the word!",
+      description: "Advocacy toolkit and resources coming soon.",
+    });
+  };
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Navigation */}
@@ -54,11 +90,11 @@ const Index = () => {
               to achieve SDG 4 and transform lives through education.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-glow">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90 shadow-glow" onClick={handleLearnMore}>
                 <BookOpen className="mr-2 h-5 w-5" />
                 Learn More
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" onClick={handleTakeAction}>
                 <Target className="mr-2 h-5 w-5" />
                 Take Action
               </Button>
@@ -68,7 +104,7 @@ const Index = () => {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-16 bg-background">
+      <section id="statistics" className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Education by the Numbers</h2>
@@ -162,7 +198,7 @@ const Index = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-hero">
+      <section id="call-to-action" className="py-16 bg-gradient-hero">
         <div className="container mx-auto px-4">
           <Card className="max-w-4xl mx-auto bg-white/95 backdrop-blur border-0 shadow-education">
             <CardHeader className="text-center">
@@ -174,7 +210,11 @@ const Index = () => {
               </p>
             </CardHeader>
             <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="text-center space-y-4">
+              <Button 
+                variant="ghost" 
+                className="h-auto p-6 flex flex-col text-center space-y-4 hover:bg-primary/5"
+                onClick={handleDonate}
+              >
                 <div className="rounded-full w-16 h-16 bg-primary/10 mx-auto flex items-center justify-center">
                   <Heart className="h-8 w-8 text-primary" />
                 </div>
@@ -182,8 +222,12 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">
                   Support education programs worldwide
                 </p>
-              </div>
-              <div className="text-center space-y-4">
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="h-auto p-6 flex flex-col text-center space-y-4 hover:bg-secondary/5"
+                onClick={handleVolunteer}
+              >
                 <div className="rounded-full w-16 h-16 bg-secondary/10 mx-auto flex items-center justify-center">
                   <Users className="h-8 w-8 text-secondary" />
                 </div>
@@ -191,8 +235,12 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">
                   Share your knowledge and skills
                 </p>
-              </div>
-              <div className="text-center space-y-4">
+              </Button>
+              <Button 
+                variant="ghost" 
+                className="h-auto p-6 flex flex-col text-center space-y-4 hover:bg-accent/5"
+                onClick={handleAdvocate}
+              >
                 <div className="rounded-full w-16 h-16 bg-accent/10 mx-auto flex items-center justify-center">
                   <TrendingUp className="h-8 w-8 text-accent" />
                 </div>
@@ -200,7 +248,7 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">
                   Raise awareness in your community
                 </p>
-              </div>
+              </Button>
             </CardContent>
           </Card>
         </div>
