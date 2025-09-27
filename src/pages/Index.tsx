@@ -1,8 +1,15 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/ui/stat-card";
 import { GoalCard } from "@/components/ui/goal-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { DonationForm } from "@/components/forms/DonationForm";
+import { VolunteerForm } from "@/components/forms/VolunteerForm";
+import { AdvocateForm } from "@/components/forms/AdvocateForm";
 import { useToast } from "@/hooks/use-toast";
 import { 
   BookOpen, 
@@ -13,11 +20,15 @@ import {
   TrendingUp,
   School,
   Laptop,
-  Heart
+  Heart,
+  LogOut,
+  User
 } from "lucide-react";
 import educationHero from "@/assets/education-hero.jpg";
 
 const Index = () => {
+  const { user, signOut, loading } = useAuth();
+  const [activeDialog, setActiveDialog] = useState<'donate' | 'volunteer' | 'advocate' | null>(null);
   const { toast } = useToast();
 
   const scrollToSection = (sectionId: string) => {
@@ -34,25 +45,63 @@ const Index = () => {
   };
 
   const handleDonate = () => {
-    toast({
-      title: "Thank you for your interest!",
-      description: "Donation portal coming soon. Your support makes a difference.",
-    });
+    if (!user) {
+      toast({
+        title: "Please sign in",
+        description: "You need to be logged in to make a donation",
+        variant: "destructive"
+      });
+      return;
+    }
+    setActiveDialog('donate');
   };
 
   const handleVolunteer = () => {
-    toast({
-      title: "Join our mission!",
-      description: "Volunteer registration will be available soon.",
-    });
+    if (!user) {
+      toast({
+        title: "Please sign in",
+        description: "You need to be logged in to volunteer",
+        variant: "destructive"
+      });
+      return;
+    }
+    setActiveDialog('volunteer');
   };
 
   const handleAdvocate = () => {
+    if (!user) {
+      toast({
+        title: "Please sign in",
+        description: "You need to be logged in to become an advocate",
+        variant: "destructive"
+      });
+      return;
+    }
+    setActiveDialog('advocate');
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
     toast({
-      title: "Spread the word!",
-      description: "Advocacy toolkit and resources coming soon.",
+      title: "Signed out",
+      description: "You have been successfully signed out"
     });
   };
+
+  const closeDialog = () => {
+    setActiveDialog(null);
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-subtle flex items-center justify-center">
+        <div className="text-center">
+          <BookOpen className="h-12 w-12 text-primary animate-pulse mx-auto mb-4" />
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Navigation */}
@@ -68,6 +117,24 @@ const Index = () => {
             <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
               SDG 4: Quality Education
             </Badge>
+            {user ? (
+              <div className="flex items-center space-x-2">
+                <Badge variant="secondary" className="flex items-center space-x-1 px-2 py-1">
+                  <User className="h-3 w-3" />
+                  <span className="text-xs">{user.email}</span>
+                </Badge>
+                <Button variant="outline" size="sm" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4 mr-1" />
+                  Sign Out
+                </Button>
+              </div>
+            ) : (
+              <Link to="/auth">
+                <Button variant="outline" size="sm">
+                  Sign In
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </nav>
@@ -274,6 +341,54 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Donation Dialog */}
+      <Dialog open={activeDialog === 'donate'} onOpenChange={closeDialog}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <Heart className="h-6 w-6 text-primary" />
+              <span>Make a Donation</span>
+            </DialogTitle>
+            <DialogDescription>
+              Your donation helps us provide quality education to those who need it most. Every contribution makes a difference.
+            </DialogDescription>
+          </DialogHeader>
+          <DonationForm onSuccess={closeDialog} />
+        </DialogContent>
+      </Dialog>
+
+      {/* Volunteer Dialog */}
+      <Dialog open={activeDialog === 'volunteer'} onOpenChange={closeDialog}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <Users className="h-6 w-6 text-primary" />
+              <span>Volunteer Application</span>
+            </DialogTitle>
+            <DialogDescription>
+              Join our team of dedicated volunteers helping to improve education worldwide. Your time and skills can make a real impact.
+            </DialogDescription>
+          </DialogHeader>
+          <VolunteerForm onSuccess={closeDialog} />
+        </DialogContent>
+      </Dialog>
+
+      {/* Advocate Dialog */}
+      <Dialog open={activeDialog === 'advocate'} onOpenChange={closeDialog}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <Globe className="h-6 w-6 text-primary" />
+              <span>Become an Advocate</span>
+            </DialogTitle>
+            <DialogDescription>
+              Amplify our mission by advocating for education policy, raising awareness, and building partnerships in your community.
+            </DialogDescription>
+          </DialogHeader>
+          <AdvocateForm onSuccess={closeDialog} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
