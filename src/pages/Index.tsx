@@ -333,38 +333,89 @@ const Index = () => {
               Have questions or want to collaborate? We'd love to hear from you.
             </p>
           </div>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="rounded-full w-16 h-16 bg-primary/10 mx-auto flex items-center justify-center mb-4">
-                  <Mail className="h-8 w-8 text-primary" />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              {/* Contact Information */}
+              <div>
+                <h3 className="text-xl font-semibold mb-6">Contact Information</h3>
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="rounded-full w-12 h-12 bg-primary/10 flex items-center justify-center">
+                      <Mail className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Email</h4>
+                      <a 
+                        href="mailto:jkithaika@gmail.com" 
+                        className="text-muted-foreground hover:text-primary transition-colors"
+                      >
+                        jkithaika@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="rounded-full w-12 h-12 bg-secondary/10 flex items-center justify-center">
+                      <Phone className="h-6 w-6 text-secondary" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Phone</h4>
+                      <a 
+                        href="tel:+254727797067" 
+                        className="text-muted-foreground hover:text-secondary transition-colors"
+                      >
+                        +254 727797067
+                      </a>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="rounded-full w-12 h-12 bg-accent/10 flex items-center justify-center">
+                      <MapPin className="h-6 w-6 text-accent" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Location</h4>
+                      <p className="text-muted-foreground">Nairobi, Kenya</p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-semibold mb-2">Email</h3>
-                <a 
-                  href="mailto:jkithaika@gmail.com" 
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
-                  jkithaika@gmail.com
-                </a>
               </div>
-              <div className="text-center">
-                <div className="rounded-full w-16 h-16 bg-secondary/10 mx-auto flex items-center justify-center mb-4">
-                  <Phone className="h-8 w-8 text-secondary" />
+
+              {/* Donation Information */}
+              <div>
+                <h3 className="text-xl font-semibold mb-6">Donation Account</h3>
+                <div className="bg-muted/50 rounded-lg p-6 space-y-4">
+                  <div className="text-center mb-4">
+                    <h4 className="font-semibold text-lg mb-2">Bank Transfer</h4>
+                    <p className="text-sm text-muted-foreground">Direct bank deposit</p>
+                  </div>
+                  <div className="space-y-3">
+                    <div className="flex justify-between py-2 border-b border-muted">
+                      <span className="font-medium">Bank:</span>
+                      <span className="text-muted-foreground">Equity Bank</span>
+                    </div>
+                    <div className="flex justify-between py-2 border-b border-muted">
+                      <span className="font-medium">Account Name:</span>
+                      <span className="text-muted-foreground">Joseph Kithaika</span>
+                    </div>
+                    <div className="flex justify-between py-2 border-b border-muted">
+                      <span className="font-medium">Account Number:</span>
+                      <span className="text-muted-foreground font-mono">1180179299914</span>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-6 pt-4 border-t border-muted">
+                    <h5 className="font-semibold mb-3 text-center">Mobile Money (M-Pesa)</h5>
+                    <div className="space-y-2">
+                      <div className="flex justify-between py-1">
+                        <span className="font-medium">Pay Bill:</span>
+                        <span className="text-muted-foreground font-mono">247247</span>
+                      </div>
+                      <div className="flex justify-between py-1">
+                        <span className="font-medium">Account:</span>
+                        <span className="text-muted-foreground font-mono">1180179299914</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="font-semibold mb-2">Phone</h3>
-                <a 
-                  href="tel:+254727797067" 
-                  className="text-muted-foreground hover:text-secondary transition-colors"
-                >
-                  +254 727797067
-                </a>
-              </div>
-              <div className="text-center">
-                <div className="rounded-full w-16 h-16 bg-accent/10 mx-auto flex items-center justify-center mb-4">
-                  <MapPin className="h-8 w-8 text-accent" />
-                </div>
-                <h3 className="font-semibold mb-2">Location</h3>
-                <p className="text-muted-foreground">Nairobi, Kenya</p>
               </div>
             </div>
           </div>
