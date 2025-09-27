@@ -22,7 +22,10 @@ import {
   Laptop,
   Heart,
   LogOut,
-  User
+  User,
+  Mail,
+  Phone,
+  MapPin
 } from "lucide-react";
 import educationHero from "@/assets/education-hero.jpg";
 
@@ -318,6 +321,53 @@ const Index = () => {
               </Button>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Get in Touch</h2>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Have questions or want to collaborate? We'd love to hear from you.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="rounded-full w-16 h-16 bg-primary/10 mx-auto flex items-center justify-center mb-4">
+                  <Mail className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="font-semibold mb-2">Email</h3>
+                <a 
+                  href="mailto:jkithaika@gmail.com" 
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  jkithaika@gmail.com
+                </a>
+              </div>
+              <div className="text-center">
+                <div className="rounded-full w-16 h-16 bg-secondary/10 mx-auto flex items-center justify-center mb-4">
+                  <Phone className="h-8 w-8 text-secondary" />
+                </div>
+                <h3 className="font-semibold mb-2">Phone</h3>
+                <a 
+                  href="tel:+254727797067" 
+                  className="text-muted-foreground hover:text-secondary transition-colors"
+                >
+                  +254 727797067
+                </a>
+              </div>
+              <div className="text-center">
+                <div className="rounded-full w-16 h-16 bg-accent/10 mx-auto flex items-center justify-center mb-4">
+                  <MapPin className="h-8 w-8 text-accent" />
+                </div>
+                <h3 className="font-semibold mb-2">Location</h3>
+                <p className="text-muted-foreground">Nairobi, Kenya</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
